@@ -1,6 +1,7 @@
 {
   "name": "sboxjam",
   "private": true,
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "dev:cms": "pnpm --filter @sboxjam/cms dev",
     "dev:web": "pnpm --filter @sboxjam/web dev",

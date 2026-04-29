@@ -1,0 +1,9 @@
+[Unit]
+Description=Poll origin/master for sboxjam and deploy if changed
+After=network-online.target sboxjam-cms.service sboxjam-web.service
+
+[Service]
+Type=oneshot
+ExecStart=/srv/sboxjam/deploy/poll.sh
+StandardOutput=journal
+StandardError=journal

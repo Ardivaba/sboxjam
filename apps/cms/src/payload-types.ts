@@ -279,8 +279,26 @@ export interface Rule {
 export interface Guide {
   id: string;
   title: string;
+  /**
+   * URL path segment. Auto-derived from title if blank.
+   */
+  slug: string;
   description: string;
-  content?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   category: 'setup' | 'development' | 'tips';
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   readTime?: string | null;
@@ -288,10 +306,33 @@ export interface Guide {
    * Material Symbols icon name
    */
   icon?: string | null;
+  coverImage?: (string | null) | Media;
+  /**
+   * If set, the guide row links here instead of the in-app detail page.
+   */
   externalUrl?: string | null;
   order?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -337,25 +378,6 @@ export interface Submission {
   submittedAt?: string | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -578,12 +600,14 @@ export interface RulesSelect<T extends boolean = true> {
  */
 export interface GuidesSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   description?: T;
   content?: T;
   category?: T;
   difficulty?: T;
   readTime?: T;
   icon?: T;
+  coverImage?: T;
   externalUrl?: T;
   order?: T;
   updatedAt?: T;

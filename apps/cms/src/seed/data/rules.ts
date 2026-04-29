@@ -87,7 +87,6 @@ export const rulesData: RuleSeedData[] = [
       { text: "Submitting a pre-existing game" },
       { text: "Submitting after the deadline" },
       { text: "Violating the Code of Conduct" },
-      { text: "Judges' decisions are final" },
     ],
   },
 ];

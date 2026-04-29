@@ -22,7 +22,22 @@ export async function fetchFromCMS<T>(options: FetchOptions): Promise<T> {
     if (options.sort) params.set("sort", options.sort);
     if (options.limit) params.set("limit", options.limit.toString());
     if (options.depth !== undefined) params.set("depth", options.depth.toString());
-    if (options.where) params.set("where", JSON.stringify(options.where));
+    if (options.where) {
+      // Payload expects bracket-notation: where[field][operator]=value
+      const walk = (obj: Record<string, unknown>, prefix: string) => {
+        for (const [k, v] of Object.entries(obj)) {
+          const key = `${prefix}[${k}]`;
+          if (v !== null && typeof v === "object" && !Array.isArray(v)) {
+            walk(v as Record<string, unknown>, key);
+          } else if (Array.isArray(v)) {
+            v.forEach((item) => params.append(key, String(item)));
+          } else if (v !== undefined) {
+            params.set(key, String(v));
+          }
+        }
+      };
+      walk(options.where, "where");
+    }
     url = `${CMS_URL}/api/${options.collection}?${params.toString()}`;
   } else {
     throw new Error("Must provide collection or global");

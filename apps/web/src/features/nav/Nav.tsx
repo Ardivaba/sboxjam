@@ -9,8 +9,8 @@ const NAV_LINKS = [
   { href: "/", label: "Home", icon: "home" },
   { href: "/prizes", label: "Prizes", icon: "emoji_events" },
   { href: "/rules", label: "Rules", icon: "gavel" },
-  { href: "/guides", label: "Guides", icon: "menu_book" },
-  { href: "/schedule", label: "Schedule", icon: "calendar_month" },
+  // { href: "/guides", label: "Guides", icon: "menu_book" },
+{ href: "/schedule", label: "Schedule", icon: "calendar_month" },
   { href: "/teams", label: "Teams", icon: "groups" },
 ];
 

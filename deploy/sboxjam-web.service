@@ -1,0 +1,21 @@
+[Unit]
+Description=sboxjam Web (Next.js)
+After=network.target sboxjam-cms.service
+Wants=sboxjam-cms.service
+
+[Service]
+Type=simple
+User=sboxjam
+Group=sboxjam
+WorkingDirectory=/srv/sboxjam/apps/web
+EnvironmentFile=/srv/sboxjam/apps/web/.env
+Environment=NODE_ENV=production
+Environment=PORT=3001
+ExecStart=/srv/sboxjam/apps/web/node_modules/.bin/next start
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

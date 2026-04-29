@@ -1,0 +1,21 @@
+[Unit]
+Description=sboxjam CMS (Payload + Next.js)
+After=network.target mongod.service
+Requires=mongod.service
+
+[Service]
+Type=simple
+User=sboxjam
+Group=sboxjam
+WorkingDirectory=/srv/sboxjam/apps/cms
+EnvironmentFile=/srv/sboxjam/apps/cms/.env
+Environment=NODE_ENV=production
+Environment=PORT=3000
+ExecStart=/srv/sboxjam/apps/cms/node_modules/.bin/next start
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

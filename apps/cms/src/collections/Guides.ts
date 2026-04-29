@@ -1,4 +1,13 @@
 import type { CollectionConfig } from "payload";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+
+const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 
 export const Guides: CollectionConfig = {
   slug: "guides",
@@ -16,13 +25,35 @@ export const Guides: CollectionConfig = {
       required: true,
     },
     {
+      name: "slug",
+      type: "text",
+      required: true,
+      unique: true,
+      index: true,
+      admin: {
+        description: "URL path segment. Auto-derived from title if blank.",
+      },
+      hooks: {
+        beforeValidate: [
+          ({ value, data }) => {
+            if (value && typeof value === "string" && value.trim().length > 0) {
+              return slugify(value);
+            }
+            if (data?.title) return slugify(String(data.title));
+            return value;
+          },
+        ],
+      },
+    },
+    {
       name: "description",
       type: "textarea",
       required: true,
     },
     {
       name: "content",
-      type: "textarea",
+      type: "richText",
+      editor: lexicalEditor(),
     },
     {
       name: "category",
@@ -56,8 +87,16 @@ export const Guides: CollectionConfig = {
       },
     },
     {
+      name: "coverImage",
+      type: "upload",
+      relationTo: "media",
+    },
+    {
       name: "externalUrl",
       type: "text",
+      admin: {
+        description: "If set, the guide row links here instead of the in-app detail page.",
+      },
     },
     {
       name: "order",

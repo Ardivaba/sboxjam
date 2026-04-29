@@ -37,6 +37,14 @@ function GuideRow({ guide }: { guide: Guide }) {
     );
   }
 
+  if (guide.slug) {
+    return (
+      <Link href={`/guides/${guide.slug}`} className={className}>
+        {content}
+      </Link>
+    );
+  }
+
   return <div className={className}>{content}</div>;
 }
 

@@ -22,14 +22,38 @@ export type Rule = {
 export type Guide = {
   id: string;
   title: string;
+  slug: string;
   description: string;
-  content?: unknown;
+  content?: LexicalRoot | null;
   category: "setup" | "development" | "tips";
   difficulty: "beginner" | "intermediate" | "advanced";
   readTime?: string;
   icon?: string;
+  coverImage?: { id: string; url: string; alt?: string } | string | null;
   externalUrl?: string;
   order: number;
+};
+
+export type LexicalNode = {
+  type: string;
+  version?: number;
+  text?: string;
+  format?: number | string;
+  tag?: string;
+  url?: string;
+  fields?: { url?: string; newTab?: boolean; linkType?: string };
+  listType?: "number" | "bullet";
+  language?: string;
+  code?: string;
+  value?: { id: string; url?: string; alt?: string } | string;
+  relationTo?: string;
+  altText?: string;
+  caption?: { editorState?: LexicalRoot } | string;
+  children?: LexicalNode[];
+};
+
+export type LexicalRoot = {
+  root: LexicalNode;
 };
 
 export type ScheduleEvent = {

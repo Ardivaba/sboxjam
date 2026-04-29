@@ -23,6 +23,11 @@ echo "==> Cleaning previous staging build dirs"
 for app in "${APPS[@]}"; do
 	sudo rm -rf "$REPO_DIR/$app/$BUILD_DIR_NAME" "$REPO_DIR/$app/.next.old"
 done
+# Drop turbo cache for the build task — without this, a previous in-place
+# build (default distDir) gets restored and .next.new never materialises,
+# even though turbo reports the task as "successful".
+sudo rm -rf "$REPO_DIR/.turbo" "$REPO_DIR/apps/cms/.turbo" "$REPO_DIR/apps/web/.turbo" \
+	"$REPO_DIR/node_modules/.cache/turbo" 2>/dev/null || true
 
 echo "==> Installing dependencies"
 sudo -u "$APP_USER" -H bash -c "cd '$REPO_DIR' && pnpm install --frozen-lockfile"

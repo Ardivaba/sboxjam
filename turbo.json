@@ -3,7 +3,13 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "env": ["NEXT_BUILD_DIR", "NODE_ENV"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        ".next.new/**",
+        "!.next.new/cache/**"
+      ]
     },
     "dev": {
       "cache": false,

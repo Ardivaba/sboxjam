@@ -1,0 +1,40 @@
+{
+  "name": "@sboxjam/cms",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "generate:types": "payload generate:types",
+    "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+    "db:seed": "payload run ./src/seed",
+    "db:seed:settings": "payload run ./src/seed/seedJamSettings",
+    "db:seed:prizes": "payload run ./src/seed/seedPrizes",
+    "db:seed:rules": "payload run ./src/seed/seedRules",
+    "db:seed:guides": "payload run ./src/seed/seedGuides",
+    "db:seed:schedule": "payload run ./src/seed/seedSchedule",
+    "db:seed:teams": "payload run ./src/seed/seedTeams"
+  },
+  "dependencies": {
+    "next": "15.2.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "payload": "3.63.0",
+    "@payloadcms/next": "3.63.0",
+    "@payloadcms/db-mongodb": "3.63.0",
+    "@payloadcms/ui": "3.63.0",
+    "sharp": "^0.33.5",
+    "graphql": "^16.10.0",
+    "cross-env": "^7.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.8.3",
+    "@tailwindcss/postcss": "^4.1.4",
+    "tailwindcss": "^4.1.4"
+  }
+}

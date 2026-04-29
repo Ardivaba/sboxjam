@@ -1,28 +1,22 @@
 {
   "name": "sboxjam",
-  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "^15.3.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "zustand": "^5.0.5",
-    "jose": "^6.0.11",
-    "bcryptjs": "^3.0.2"
+    "dev:cms": "pnpm --filter @sboxjam/cms dev",
+    "dev:web": "pnpm --filter @sboxjam/web dev",
+    "build": "turbo build",
+    "generate:types": "pnpm --filter @sboxjam/cms generate:types",
+    "db:seed": "pnpm --filter @sboxjam/cms db:seed",
+    "db:seed:settings": "pnpm --filter @sboxjam/cms db:seed:settings",
+    "db:seed:prizes": "pnpm --filter @sboxjam/cms db:seed:prizes",
+    "db:seed:rules": "pnpm --filter @sboxjam/cms db:seed:rules",
+    "db:seed:guides": "pnpm --filter @sboxjam/cms db:seed:guides",
+    "db:seed:schedule": "pnpm --filter @sboxjam/cms db:seed:schedule"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@types/bcryptjs": "^2.4.6",
-    "@tailwindcss/postcss": "^4.1.4",
-    "tailwindcss": "^4.1.4",
-    "typescript": "^5.8.3"
+    "turbo": "^2.4.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "sharp"]
   }
 }

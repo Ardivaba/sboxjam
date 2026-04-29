@@ -50,7 +50,6 @@ export const rulesData: RuleSeedData[] = [
       { text: "Pre-existing code libraries and frameworks are allowed" },
       { text: "Pre-made assets (sounds, textures) are allowed if you have the license" },
       { text: "Your game must be playable within s&box" },
-      { text: "Source code must be submitted alongside the playable build" },
       { text: "Include a short description and screenshots with your submission" },
     ],
   },

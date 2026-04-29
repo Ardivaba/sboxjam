@@ -114,7 +114,7 @@ export function PrizesContent({ prizes }: { prizes: Prize[] }) {
         {/* Honorable mentions — simple list */}
         {honorable.length > 0 && (
           <div className="mb-14">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-text-muted mb-6">Honorable Mentions</h2>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-text-muted mb-6">Standout Picks</h2>
             <div className="space-y-3">
               {honorable.map((prize, i) => (
                 <motion.div

@@ -56,7 +56,10 @@ export async function seedGuides(payload: Payload) {
 
   console.log("  Creating guides...");
   for (const guide of guidesData) {
-    await payload.create({ collection: "guides", data: guide });
+    // Lexical helper output is structurally compatible with Payload's
+    // SerializedEditorState but has a slightly looser node type; cast to
+    // satisfy the strict generated type.
+    await payload.create({ collection: "guides", data: guide as never });
   }
   console.log(`  ✓ Created ${guidesData.length} guides`);
 }

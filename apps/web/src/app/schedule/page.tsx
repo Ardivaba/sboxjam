@@ -11,14 +11,8 @@ export default async function SchedulePage() {
 
   return (
     <div className="min-h-screen px-4 pt-20 pb-24">
-      <section className="relative mx-auto max-w-5xl py-12 text-center md:py-20">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 50% 60% at 50% 0%, rgba(50,115,235,0.1) 0%, transparent 70%)",
-          }}
-        />
-        <div className="relative z-10 animate-fade-in">
+      <section className="mx-auto max-w-5xl py-12 text-center md:py-20">
+        <div className="animate-fade-in">
           <h1 className="mb-4 text-3xl font-bold text-text-white md:text-5xl">
             Event <span className="text-gradient">Schedule</span>
           </h1>

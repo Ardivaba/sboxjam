@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:sbox.game)",
+      "WebFetch(domain:asset.party)"
+    ]
+  }
+}

@@ -18,7 +18,7 @@ export function Nav() {
   const { user, logout } = useAuthStore();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-[60px] bg-header border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 h-[60px] bg-header backdrop-blur-xl border-b border-border">
       <div className="max-w-[1200px] mx-auto h-full flex items-center justify-between px-6">
         <div className="flex items-center gap-8">
           <Link href="/" className="flex items-center gap-2">

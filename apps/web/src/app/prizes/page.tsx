@@ -16,14 +16,8 @@ export default async function PrizesPage() {
 
   return (
     <div className="min-h-screen px-4 pt-20 pb-24">
-      <section className="relative mx-auto max-w-5xl py-12 text-center md:py-20">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 50% 60% at 50% 0%, rgba(50,115,235,0.1) 0%, transparent 70%)",
-          }}
-        />
-        <div className="relative z-10 animate-fade-in">
+      <section className="mx-auto max-w-5xl py-12 text-center md:py-20">
+        <div className="animate-fade-in">
           <h1 className="mb-4 text-3xl font-bold text-text-white md:text-5xl">
             Prizes & <span className="text-gradient">Rewards</span>
           </h1>
@@ -33,10 +27,11 @@ export default async function PrizesPage() {
         </div>
       </section>
 
+
       {grandPrizes.length > 0 && (
         <section className="mx-auto max-w-4xl pb-16">
           {grandPrizes.map((prize) => (
-            <div key={prize.id} className="glass-strong animate-pulse-glow rounded-xl p-10 text-center mb-6">
+            <div key={prize.id} className="glass-strong rounded-xl p-10 text-center mb-6">
               <span className="material-symbols-rounded mb-4 text-5xl text-warning">
                 {prize.icon || "emoji_events"}
               </span>

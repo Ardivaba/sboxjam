@@ -11,6 +11,7 @@ import { Rules } from "./collections/Rules";
 import { Guides } from "./collections/Guides";
 import { ScheduleEvents } from "./collections/ScheduleEvents";
 import { Submissions } from "./collections/Submissions";
+import { DevLogs } from "./collections/DevLogs";
 import { Media } from "./collections/Media";
 import { JamSettings } from "./globals/JamSettings";
 
@@ -33,6 +34,7 @@ export default buildConfig({
     Guides,
     ScheduleEvents,
     Submissions,
+    DevLogs,
     Media,
   ],
   globals: [JamSettings],

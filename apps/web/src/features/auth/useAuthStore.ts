@@ -26,7 +26,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
-      credentials: "include",
     });
     if (!res.ok) {
       set({ loading: false });
@@ -43,7 +42,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password }),
-      credentials: "include",
     });
     if (!res.ok) {
       set({ loading: false });
@@ -55,7 +53,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
-      credentials: "include",
     });
     if (loginRes.ok) {
       const loginData = await loginRes.json();
@@ -68,7 +65,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   logout: () => {
     fetch(`${CMS_URL}/api/participants/logout`, {
       method: "POST",
-      credentials: "include",
     });
     set({ user: null, token: null });
   },

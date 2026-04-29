@@ -109,20 +109,32 @@ export default function TeamDetailPage() {
           </div>
         </div>
 
-        {/* Invite code */}
+        {/* Actions */}
         {(isLeader || isMember) && (
-          <div className="mb-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-text-muted mb-3">Invite Code</p>
-            <div className="flex items-center gap-3">
-              <code className="flex-1 py-2.5 px-3 bg-white/[0.03] border border-white/[0.06] rounded text-sm text-primary-light font-mono tracking-wider">
-                {team.inviteCode}
-              </code>
-              <button onClick={handleCopyInvite} className="btn-secondary text-sm">
-                {copied ? "Copied" : "Copy"}
-              </button>
+          <>
+            <div className="mb-10">
+              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-text-muted mb-3">Invite Code</p>
+              <div className="flex items-center gap-3">
+                <code className="flex-1 py-2.5 px-3 bg-white/[0.03] border border-white/[0.06] rounded text-sm text-primary-light font-mono tracking-wider">
+                  {team.inviteCode}
+                </code>
+                <button onClick={handleCopyInvite} className="btn-secondary text-sm">
+                  {copied ? "Copied" : "Copy"}
+                </button>
+              </div>
+              <p className="text-text-muted/50 text-xs mt-2">Share this code with others to invite them.</p>
             </div>
-            <p className="text-text-muted/50 text-xs mt-2">Share this code with others to invite them.</p>
-          </div>
+
+            <div className="mb-10 flex items-center justify-between py-4 border-y border-white/[0.04]">
+              <div>
+                <p className="text-sm font-medium text-text-bright">Devlog</p>
+                <p className="text-xs text-text-muted mt-0.5">Share your team&apos;s progress</p>
+              </div>
+              <Link href="/devlog/new" className="btn-primary text-sm">
+                Write Post
+              </Link>
+            </div>
+          </>
         )}
       </div>
     </div>

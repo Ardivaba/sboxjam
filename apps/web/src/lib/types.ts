@@ -88,6 +88,28 @@ export type Participant = {
   sboxAccountId?: string;
 };
 
+export type MediaItem = {
+  id: string;
+  url: string;
+  alt?: string;
+  filename?: string;
+  mimeType?: string;
+  width?: number;
+  height?: number;
+};
+
+export type DevLog = {
+  id: string;
+  title: string;
+  body: LexicalRoot;
+  team: Team | string;
+  author: Participant | string;
+  images?: { image: MediaItem | string; caption?: string }[];
+  videoUrl?: string;
+  publishedAt: string;
+  createdAt: string;
+};
+
 export type JamSettings = {
   jamName: string;
   tagline: string;

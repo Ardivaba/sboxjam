@@ -3,6 +3,10 @@ import type { CollectionConfig } from "payload";
 export const Participants: CollectionConfig = {
   slug: "participants",
   auth: true,
+  access: {
+    create: () => true,
+    read: () => true,
+  },
   admin: {
     useAsTitle: "username",
   },

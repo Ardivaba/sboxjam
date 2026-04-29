@@ -53,9 +53,17 @@ export const Teams: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [
-      ({ data, operation }) => {
-        if (operation === "create" && !data?.inviteCode) {
-          data!.inviteCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+      ({ data, operation, req }) => {
+        if (operation === "create") {
+          if (!data?.inviteCode) {
+            data!.inviteCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+          }
+          if (!data?.leader && req.user) {
+            data!.leader = req.user.id;
+          }
+          if (!data?.members?.length && req.user) {
+            data!.members = [req.user.id];
+          }
         }
         return data;
       },

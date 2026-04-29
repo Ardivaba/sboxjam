@@ -28,7 +28,7 @@ export async function fetchFromCMS<T>(options: FetchOptions): Promise<T> {
     throw new Error("Must provide collection or global");
   }
 
-  const res = await fetch(url, { next: { revalidate: 60 } });
+  const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error(`CMS fetch failed: ${res.status}`);
   return res.json();
 }

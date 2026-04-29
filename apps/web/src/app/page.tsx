@@ -23,130 +23,112 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen">
-      <section className="overflow-hidden px-4 pt-24 pb-32 md:pt-36 md:pb-44">
-        <div className="mx-auto max-w-5xl text-center">
-          <div className="animate-fade-in">
-            <p className="mb-4 text-sm font-medium tracking-widest uppercase text-primary-light">
-              Summer 2026
-            </p>
-            <h1 className="mb-6 text-4xl font-bold leading-tight text-text-white md:text-6xl lg:text-7xl">
-              {jamName.replace("2026", "")}
-              <span className="text-gradient">2026</span>
-            </h1>
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-text-muted md:text-xl">
-              {tagline}
-            </p>
-          </div>
+      {/* Hero */}
+      <section className="px-4 pt-28 pb-20 md:pt-40 md:pb-32">
+        <div className="mx-auto max-w-4xl text-center animate-fade-in">
+          <p className="mb-5 text-sm font-medium tracking-[0.2em] uppercase text-primary-light/70">
+            Summer 2026
+          </p>
+          <h1 className="mb-6 text-5xl font-bold leading-[1.1] text-white md:text-7xl lg:text-8xl tracking-tight">
+            {jamName.replace("2026", "").trim()}{" "}
+            <span className="text-gradient">2026</span>
+          </h1>
+          <p className="mx-auto mb-12 max-w-lg text-text-muted md:text-lg">
+            {tagline}
+          </p>
 
-          <div className="mb-12">
-            <Countdown targetDate={settings?.jamStartDate || "2026-06-13T18:00:00.000Z"} />
-          </div>
+          <Countdown targetDate={settings?.jamStartDate || "2026-06-13T18:00:00.000Z"} />
 
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link href="/register" className="btn-primary text-base">
-              <span className="material-symbols-rounded">rocket_launch</span>
+          <div className="mt-12 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <Link href="/register" className="btn-primary text-base px-6 py-2.5">
               Register Now
             </Link>
-            <Link href="/rules" className="btn-secondary text-base">
-              <span className="material-symbols-rounded">info</span>
+            <Link href="/rules" className="btn-secondary text-base px-6 py-2.5">
               Learn More
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="px-4 py-16 md:py-24">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-          {[
-            { icon: "timer", value: "72", label: "Hours", suffix: "hrs" },
-            { icon: "group", value: String(maxTeamSize), label: "Max Team Size", suffix: "max" },
-            { icon: "emoji_events", value: prizePool, label: "Prize Pool", suffix: "" },
-            { icon: "people", value: "500", label: "Participants", suffix: "+" },
-          ].map((stat) => (
-            <div key={stat.label} className="card flex flex-col items-center p-6 text-center">
-              <span className="material-symbols-rounded mb-3 text-3xl text-primary">{stat.icon}</span>
-              <p className="text-2xl font-bold text-text-white md:text-3xl">
-                {stat.value}
-                <span className="text-sm font-normal text-text-muted">{stat.suffix}</span>
-              </p>
-              <p className="mt-1 text-sm text-text-muted">{stat.label}</p>
-            </div>
-          ))}
+      {/* Stats — no cards, just typography */}
+      <section className="px-4 py-12 border-y border-white/[0.04]">
+        <div className="mx-auto max-w-4xl flex flex-wrap justify-center gap-x-16 gap-y-6 text-center">
+          <div>
+            <p className="text-3xl font-bold text-white md:text-4xl">72<span className="text-lg font-normal text-text-muted ml-1">hrs</span></p>
+            <p className="text-xs text-text-muted mt-1 uppercase tracking-wider">Build Time</p>
+          </div>
+          <div>
+            <p className="text-3xl font-bold text-white md:text-4xl">{maxTeamSize}<span className="text-lg font-normal text-text-muted ml-1">max</span></p>
+            <p className="text-xs text-text-muted mt-1 uppercase tracking-wider">Team Size</p>
+          </div>
+          <div>
+            <p className="text-3xl font-bold text-white md:text-4xl">{prizePool}</p>
+            <p className="text-xs text-text-muted mt-1 uppercase tracking-wider">Prize Pool</p>
+          </div>
         </div>
       </section>
 
-      <section className="px-4 py-16 md:py-24">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-12 text-center">
-            <h2 className="mb-3 text-2xl font-bold text-text-white md:text-4xl">How it Works</h2>
-            <p className="text-text-muted">Three simple steps to join the jam</p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
+      {/* How it works — numbered steps, no cards */}
+      <section className="px-4 py-20 md:py-28">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold text-white mb-12 md:text-3xl">How it works</h2>
+          <div className="space-y-10">
             {[
-              { step: "01", icon: "app_registration", title: "Register", description: "Sign up with your s&box account and secure your spot in the jam." },
-              { step: "02", icon: "groups", title: "Form a Team", description: "Find teammates or go solo. Teams of up to 4 can compete together." },
-              { step: "03", icon: "code", title: "Build & Submit", description: "Once the theme is revealed, you have 72 hours to create and submit your game." },
-            ].map((item) => (
-              <div key={item.step} className="glass rounded-xl p-6 md:p-8">
-                <div className="mb-4 flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/20 text-sm font-bold text-primary">
-                    {item.step}
-                  </span>
-                  <span className="material-symbols-rounded text-2xl text-primary-light">{item.icon}</span>
+              { title: "Register", desc: "Sign up with your s&box account and secure your spot." },
+              { title: "Form a Team", desc: `Find teammates or go solo. Teams of up to ${maxTeamSize} can compete together.` },
+              { title: "Build & Submit", desc: "Once the theme is revealed, you have 72 hours to create and submit your game." },
+            ].map((step, i) => (
+              <div key={i} className="flex gap-6 items-baseline">
+                <span className="text-4xl font-bold text-white/10 shrink-0 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3 className="text-lg font-semibold text-white mb-1">{step.title}</h3>
+                  <p className="text-text-muted leading-relaxed">{step.desc}</p>
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-text-white">{item.title}</h3>
-                <p className="text-sm leading-relaxed text-text-muted">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Prizes preview — simple, not cards */}
       {prizes.length > 0 && (
-        <section className="px-4 py-16 md:py-24">
-          <div className="mx-auto max-w-5xl">
-            <div className="mb-12 text-center">
-              <h2 className="mb-3 text-2xl font-bold text-text-white md:text-4xl">Prizes</h2>
-              <p className="text-text-muted">Over {prizePool} in prizes across multiple categories</p>
+        <section className="px-4 py-20 md:py-28 border-t border-white/[0.04]">
+          <div className="mx-auto max-w-3xl">
+            <div className="flex items-baseline justify-between mb-10">
+              <h2 className="text-2xl font-bold text-white md:text-3xl">Prizes</h2>
+              <Link href="/prizes" className="text-sm text-primary hover:text-primary-light transition-colors">
+                View all &rarr;
+              </Link>
             </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {prizes.map((prize) => (
-                <div key={prize.id} className="card rounded-xl p-6 text-center">
-                  <span className="material-symbols-rounded mb-3 text-4xl text-warning">
-                    {prize.icon || "emoji_events"}
-                  </span>
-                  <p className="mb-1 text-xs font-medium uppercase tracking-wider text-text-muted">{prize.title}</p>
-                  <p className="text-2xl font-bold text-text-white">{prize.amount}</p>
+            <div className="space-y-6">
+              {prizes.map((prize, i) => (
+                <div key={prize.id} className="flex items-center gap-6 py-4 border-b border-white/[0.04] last:border-0">
+                  <span className="text-2xl font-bold text-white/10 tabular-nums w-8">{String(i + 1).padStart(2, "0")}</span>
+                  <div className="flex-1">
+                    <p className="text-text-bright font-medium">{prize.title}</p>
+                  </div>
+                  <p className="text-xl font-bold text-white">{prize.amount}</p>
                 </div>
               ))}
-            </div>
-            <div className="mt-8 text-center">
-              <Link href="/prizes" className="btn-glass text-sm">
-                <span className="material-symbols-rounded">arrow_forward</span>
-                View All Prizes
-              </Link>
             </div>
           </div>
         </section>
       )}
 
-      <section className="px-4 py-16 md:py-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="glass-strong rounded-2xl p-10 md:p-16">
-            <h2 className="mb-4 text-2xl font-bold text-text-white md:text-4xl">Ready to Jam?</h2>
-            <p className="mb-8 text-text-muted md:text-lg">
-              Register now to secure your spot. Spaces are limited and filling up fast.
-            </p>
-            <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <Link href="/register" className="btn-primary text-base">
-                <span className="material-symbols-rounded">rocket_launch</span>
-                Register Now
-              </Link>
-              <Link href="/schedule" className="btn-secondary text-base">
-                <span className="material-symbols-rounded">calendar_month</span>
-                View Schedule
-              </Link>
-            </div>
+      {/* CTA — no card wrapper */}
+      <section className="px-4 py-20 md:py-28">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold text-white mb-4 md:text-4xl">Ready to jam?</h2>
+          <p className="text-text-muted mb-8 md:text-lg">
+            Register now to secure your spot.
+          </p>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <Link href="/register" className="btn-primary text-base px-6 py-2.5">
+              Register Now
+            </Link>
+            <Link href="/schedule" className="btn-secondary text-base px-6 py-2.5">
+              View Schedule
+            </Link>
           </div>
         </div>
       </section>

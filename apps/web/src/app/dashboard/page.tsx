@@ -28,91 +28,77 @@ export default function DashboardPage() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen pt-[60px]">
-      <div className="max-w-[1000px] mx-auto px-6 py-16">
-        <div className="animate-fade-in">
-          <h1 className="text-3xl md:text-4xl font-bold text-text-bright mb-2">
-            Welcome back, <span className="text-gradient">{user.username}</span>
+    <div className="min-h-screen px-4 pt-16 pb-24">
+      <div className="mx-auto max-w-3xl">
+        <div className="py-8 md:py-12 animate-fade-in">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-1">
+            {user.username}
           </h1>
-          <p className="text-text-muted text-lg mb-10">Manage your jam participation and team.</p>
+          <p className="text-text-muted">Manage your jam participation.</p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="card p-6 animate-fade-in">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="material-symbols-rounded text-2xl text-primary">event_available</span>
-              <h2 className="text-xl font-semibold text-text-bright">Registration Status</h2>
+        <div className="space-y-8 animate-fade-in">
+          {/* Registration */}
+          <div className="flex items-center justify-between py-4 border-b border-white/[0.04]">
+            <div>
+              <p className="text-sm font-medium text-text-bright">Jam Registration</p>
+              <p className="text-xs text-text-muted mt-0.5">
+                {registered ? "You're registered for the jam" : "You haven't registered yet"}
+              </p>
             </div>
             {registered ? (
-              <div className="flex items-center gap-3 p-4 rounded-lg bg-success/10 border border-success/20">
-                <span className="material-symbols-rounded text-success">check_circle</span>
-                <span className="text-success font-medium">Registered for the Jam</span>
-              </div>
+              <span className="text-xs font-medium text-success uppercase tracking-wider">Registered</span>
             ) : (
-              <div>
-                <p className="text-text-muted mb-4">You haven&apos;t registered for the jam yet.</p>
-                <button onClick={() => setRegistered(true)} className="btn-primary">
-                  <span className="material-symbols-rounded">rocket_launch</span>
-                  Register for Jam
-                </button>
-              </div>
+              <button onClick={() => setRegistered(true)} className="btn-primary text-sm">
+                Register
+              </button>
             )}
           </div>
 
-          <div className="card p-6 animate-fade-in">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="material-symbols-rounded text-2xl text-primary">groups</span>
-              <h2 className="text-xl font-semibold text-text-bright">Team Status</h2>
+          {/* Team */}
+          <div className="flex items-center justify-between py-4 border-b border-white/[0.04]">
+            <div>
+              <p className="text-sm font-medium text-text-bright">Team</p>
+              <p className="text-xs text-text-muted mt-0.5">
+                {myTeam
+                  ? `${myTeam.name} · ${Array.isArray(myTeam.members) ? myTeam.members.length : 0}/${myTeam.maxMembers} members`
+                  : "Not on a team yet"
+                }
+              </p>
             </div>
             {myTeam ? (
-              <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-text-bright font-semibold text-lg">{myTeam.name}</span>
-                  <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary-light text-xs font-medium">
-                    {Array.isArray(myTeam.members) ? myTeam.members.length : 0}/{myTeam.maxMembers}
-                  </span>
-                </div>
-                <Link href={`/teams/${myTeam.id}`} className="btn-secondary text-sm">
-                  <span className="material-symbols-rounded">visibility</span>
-                  View Team
-                </Link>
-              </div>
+              <Link href={`/teams/${myTeam.id}`} className="text-sm text-primary hover:text-primary-light transition-colors">
+                View &rarr;
+              </Link>
             ) : (
-              <div>
-                <p className="text-text-muted mb-4">You&apos;re not on a team yet.</p>
-                <Link href="/teams" className="btn-primary text-sm">
-                  <span className="material-symbols-rounded">group_add</span>
-                  Find or Create a Team
-                </Link>
-              </div>
+              <Link href="/teams" className="btn-primary text-sm">
+                Find Team
+              </Link>
             )}
           </div>
-        </div>
 
-        <div className="mt-10 animate-fade-in">
-          <h2 className="text-xl font-semibold text-text-bright mb-4">Quick Links</h2>
-          <div className="grid gap-4 sm:grid-cols-3">
-            <Link href="/rules" className="card p-5 flex items-center gap-4 group">
-              <span className="material-symbols-rounded text-2xl text-primary group-hover:text-primary-light transition-colors">gavel</span>
-              <div>
-                <p className="text-text-bright font-medium">Rules</p>
-                <p className="text-text-muted text-sm">View jam guidelines</p>
-              </div>
-            </Link>
-            <Link href="/schedule" className="card p-5 flex items-center gap-4 group">
-              <span className="material-symbols-rounded text-2xl text-primary group-hover:text-primary-light transition-colors">calendar_month</span>
-              <div>
-                <p className="text-text-bright font-medium">Schedule</p>
-                <p className="text-text-muted text-sm">View timeline</p>
-              </div>
-            </Link>
-            <Link href="/teams" className="card p-5 flex items-center gap-4 group">
-              <span className="material-symbols-rounded text-2xl text-primary group-hover:text-primary-light transition-colors">people</span>
-              <div>
-                <p className="text-text-bright font-medium">Browse Teams</p>
-                <p className="text-text-muted text-sm">Find teammates</p>
-              </div>
-            </Link>
+          {/* Links */}
+          <div className="pt-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-text-muted mb-4">Quick Links</p>
+            <div className="space-y-1">
+              {[
+                { href: "/rules", label: "Rules", desc: "View jam guidelines" },
+                { href: "/schedule", label: "Schedule", desc: "View timeline" },
+                { href: "/teams", label: "Browse Teams", desc: "Find teammates" },
+              ].map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center justify-between py-3 hover:bg-white/[0.02] -mx-3 px-3 rounded transition-colors group"
+                >
+                  <div>
+                    <p className="text-sm text-text-bright font-medium group-hover:text-white transition-colors">{link.label}</p>
+                    <p className="text-xs text-text-muted/60">{link.desc}</p>
+                  </div>
+                  <span className="text-text-muted/30 group-hover:text-text-muted transition-colors">&rarr;</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

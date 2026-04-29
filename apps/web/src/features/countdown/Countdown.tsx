@@ -34,20 +34,25 @@ export function Countdown({ targetDate }: { targetDate: string }) {
   }, [targetDate]);
 
   const units = [
-    { label: "Days", value: timeLeft.days },
-    { label: "Hours", value: timeLeft.hours },
-    { label: "Minutes", value: timeLeft.minutes },
-    { label: "Seconds", value: timeLeft.seconds },
+    { label: "days", value: timeLeft.days },
+    { label: "hrs", value: timeLeft.hours },
+    { label: "min", value: timeLeft.minutes },
+    { label: "sec", value: timeLeft.seconds },
   ];
 
   return (
-    <div className="flex justify-center gap-4 md:gap-6">
-      {units.map(({ label, value }) => (
-        <div key={label} className="flex flex-col items-center">
-          <div className="glass-strong flex h-16 w-16 items-center justify-center rounded-lg text-2xl font-bold text-text-white md:h-20 md:w-20 md:text-3xl">
-            {mounted ? String(value).padStart(2, "0") : "--"}
+    <div className="flex justify-center gap-2 md:gap-3 font-mono">
+      {units.map(({ label, value }, i) => (
+        <div key={label} className="flex items-baseline gap-2 md:gap-3">
+          <div className="text-center">
+            <span className="text-3xl md:text-5xl font-bold text-white tabular-nums tracking-tight">
+              {mounted ? String(value).padStart(2, "0") : "--"}
+            </span>
+            <p className="text-[10px] text-text-muted mt-1 uppercase tracking-widest font-sans">{label}</p>
           </div>
-          <span className="mt-2 text-xs text-text-muted">{label}</span>
+          {i < units.length - 1 && (
+            <span className="text-2xl md:text-4xl text-white/15 font-light self-start mt-0.5">:</span>
+          )}
         </div>
       ))}
     </div>

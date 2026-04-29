@@ -43,24 +43,19 @@ export default function TeamDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-[60px] flex items-center justify-center">
-        <div className="glass-strong rounded-xl p-8 text-center">
-          <span className="material-symbols-rounded text-4xl text-primary animate-spin">progress_activity</span>
-          <p className="mt-4 text-text-muted">Loading team...</p>
-        </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-text-muted text-sm">Loading...</p>
       </div>
     );
   }
 
   if (!team) {
     return (
-      <div className="min-h-screen pt-[60px] flex items-center justify-center">
-        <div className="glass-strong rounded-xl p-8 text-center">
-          <span className="material-symbols-rounded text-4xl text-error">error</span>
-          <p className="mt-4 text-text-muted">Team not found.</p>
-          <Link href="/teams" className="btn-secondary mt-4 text-sm">
-            <span className="material-symbols-rounded">arrow_back</span>
-            Back to Teams
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-text-muted mb-4">Team not found.</p>
+          <Link href="/teams" className="text-sm text-primary hover:text-primary-light transition-colors">
+            &larr; Back to Teams
           </Link>
         </div>
       </div>
@@ -76,72 +71,59 @@ export default function TeamDetailPage() {
     : team.leader;
 
   return (
-    <div className="min-h-screen pt-[60px]">
-      <div className="max-w-[800px] mx-auto px-6 py-16">
-        <div className="animate-fade-in">
-          <Link href="/teams" className="inline-flex items-center gap-1 text-sm text-text-muted hover:text-text-bright transition-colors mb-6">
-            <span className="material-symbols-rounded text-base">arrow_back</span>
-            Back to Teams
+    <div className="min-h-screen px-4 pt-16 pb-24">
+      <div className="mx-auto max-w-2xl">
+        <div className="py-8 md:py-12 animate-fade-in">
+          <Link href="/teams" className="text-sm text-text-muted hover:text-text-bright transition-colors">
+            &larr; Teams
           </Link>
 
-          <div className="glass-strong rounded-xl p-8 mb-6">
-            <div className="flex items-start justify-between gap-4 mb-4">
-              <div>
-                <h1 className="text-2xl md:text-3xl font-bold text-text-bright">{team.name}</h1>
-                {team.description && <p className="text-text-muted mt-2">{team.description}</p>}
-              </div>
-              <span className="px-3 py-1 rounded-full bg-primary/20 text-primary-light text-sm font-medium shrink-0">
-                {members.length}/{team.maxMembers}
-              </span>
-            </div>
+          <div className="mt-6 flex items-baseline justify-between gap-4">
+            <h1 className="text-2xl md:text-3xl font-bold text-white">{team.name}</h1>
+            <span className="text-sm text-text-muted tabular-nums shrink-0">
+              {members.length}/{team.maxMembers}
+            </span>
           </div>
-
-          <div className="card p-6 mb-6">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="material-symbols-rounded text-xl text-primary">group</span>
-              <h2 className="text-lg font-semibold text-text-bright">Members</h2>
-            </div>
-            <div className="space-y-3">
-              {members.map((member) => (
-                <div key={member.id} className="flex items-center gap-3 p-3 rounded-lg bg-bg-dark/50">
-                  <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-                    <span className="text-primary-light text-xs font-medium">
-                      {member.username[0]?.toUpperCase() || "?"}
-                    </span>
-                  </div>
-                  <span className="text-text-bright font-medium flex-1">{member.username}</span>
-                  {leader && member.id === leader.id ? (
-                    <span className="px-2 py-0.5 rounded-full bg-warning/20 text-warning text-xs font-medium flex items-center gap-1">
-                      <span className="material-symbols-rounded text-xs">star</span>
-                      Leader
-                    </span>
-                  ) : (
-                    <span className="px-2 py-0.5 rounded-full bg-primary/20 text-primary-light text-xs font-medium">Member</span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {(isLeader || isMember) && (
-            <div className="card p-6 mb-6">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="material-symbols-rounded text-xl text-primary">vpn_key</span>
-                <h2 className="text-lg font-semibold text-text-bright">Invite Code</h2>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="flex-1 p-3 rounded-lg bg-bg-dark/50 font-mono text-primary-light text-sm">
-                  {team.inviteCode}
-                </div>
-                <button onClick={handleCopyInvite} className="btn-secondary text-sm">
-                  <span className="material-symbols-rounded text-base">{copied ? "check" : "content_copy"}</span>
-                  {copied ? "Copied" : "Copy"}
-                </button>
-              </div>
-              <p className="text-text-muted text-xs mt-2">Share this code with others to invite them.</p>
-            </div>
+          {team.description && (
+            <p className="text-text-muted mt-2">{team.description}</p>
           )}
         </div>
+
+        {/* Members */}
+        <div className="mb-10">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-text-muted mb-4">Members</p>
+          <div className="divide-y divide-white/[0.04]">
+            {members.map((member) => (
+              <div key={member.id} className="flex items-center gap-3 py-3">
+                <div className="w-7 h-7 rounded bg-white/[0.06] flex items-center justify-center shrink-0">
+                  <span className="text-xs font-medium text-text-muted">
+                    {member.username[0]?.toUpperCase() || "?"}
+                  </span>
+                </div>
+                <span className="text-text-bright text-sm font-medium flex-1">{member.username}</span>
+                {leader && member.id === leader.id && (
+                  <span className="text-[10px] text-warning uppercase tracking-wider font-medium">Leader</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Invite code */}
+        {(isLeader || isMember) && (
+          <div className="mb-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-text-muted mb-3">Invite Code</p>
+            <div className="flex items-center gap-3">
+              <code className="flex-1 py-2.5 px-3 bg-white/[0.03] border border-white/[0.06] rounded text-sm text-primary-light font-mono tracking-wider">
+                {team.inviteCode}
+              </code>
+              <button onClick={handleCopyInvite} className="btn-secondary text-sm">
+                {copied ? "Copied" : "Copy"}
+              </button>
+            </div>
+            <p className="text-text-muted/50 text-xs mt-2">Share this code with others to invite them.</p>
+          </div>
+        )}
       </div>
     </div>
   );

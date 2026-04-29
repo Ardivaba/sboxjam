@@ -45,9 +45,13 @@ export default buildConfig({
   cors: [
     "http://localhost:3000",
     "http://localhost:3001",
+    "https://sboxjam.com",
+    "https://admin.sboxjam.com",
   ],
   csrf: [
     "http://localhost:3000",
     "http://localhost:3001",
+    "https://sboxjam.com",
+    "https://admin.sboxjam.com",
   ],
 });

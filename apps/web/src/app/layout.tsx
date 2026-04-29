@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nav } from "@/features/nav/Nav";
 import { Footer } from "@/features/nav/Footer";
 import { GlobalSpotlight } from "@/components/ui/global-spotlight";
+import { TestRibbon } from "@/components/ui/test-ribbon";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         <div className="hero-bg" />
         <GlobalSpotlight />
+        <TestRibbon />
         <div className="relative z-10">
           <Nav />
           <main className="min-h-screen">{children}</main>

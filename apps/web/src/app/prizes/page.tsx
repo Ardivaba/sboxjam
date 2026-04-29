@@ -15,8 +15,8 @@ export default async function PrizesPage() {
   const honorable = prizes.filter((p) => p.category === "honorable");
 
   return (
-    <div className="min-h-screen px-4 pt-20 pb-24">
-      <section className="mx-auto max-w-5xl py-12 text-center md:py-20">
+    <div className="min-h-screen px-4 pt-16 pb-24">
+      <section className="mx-auto max-w-5xl py-6 text-center md:py-10">
         <div className="animate-fade-in">
           <h1 className="mb-4 text-3xl font-bold text-text-white md:text-5xl">
             Prizes & <span className="text-gradient">Rewards</span>

@@ -24,9 +24,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="antialiased">
-        <Nav />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <div className="hero-bg" />
+        <div className="relative z-10">
+          <Nav />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

@@ -23,14 +23,8 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen">
-      <section className="relative overflow-hidden px-4 pt-24 pb-32 md:pt-36 md:pb-44">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 60% 50% at 50% 30%, rgba(50,115,235,0.15) 0%, transparent 70%)",
-          }}
-        />
-        <div className="relative z-10 mx-auto max-w-5xl text-center">
+      <section className="overflow-hidden px-4 pt-24 pb-32 md:pt-36 md:pb-44">
+        <div className="mx-auto max-w-5xl text-center">
           <div className="animate-fade-in">
             <p className="mb-4 text-sm font-medium tracking-widest uppercase text-primary-light">
               Summer 2026
@@ -117,7 +111,7 @@ export default async function HomePage() {
             </div>
             <div className="grid gap-6 md:grid-cols-3">
               {prizes.map((prize) => (
-                <div key={prize.id} className={`card rounded-xl p-6 text-center ${prize.category === "grand" ? "animate-pulse-glow" : ""}`}>
+                <div key={prize.id} className="card rounded-xl p-6 text-center">
                   <span className="material-symbols-rounded mb-3 text-4xl text-warning">
                     {prize.icon || "emoji_events"}
                   </span>

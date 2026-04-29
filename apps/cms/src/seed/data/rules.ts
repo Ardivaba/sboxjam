@@ -34,9 +34,9 @@ export const rulesData: RuleSeedData[] = [
     icon: "timer",
     order: 3,
     items: [
-      { text: "The jam lasts exactly 72 hours from theme reveal" },
+      { text: "The jam lasts one week from theme reveal" },
       { text: "Start: Friday, June 13, 2026 at 6:00 PM UTC" },
-      { text: "End: Monday, June 16, 2026 at 6:00 PM UTC" },
+      { text: "End: Friday, June 20, 2026 at 6:00 PM UTC" },
       { text: "Late submissions will not be accepted" },
       { text: "You may submit early and update until the deadline" },
     ],
@@ -46,7 +46,7 @@ export const rulesData: RuleSeedData[] = [
     icon: "upload_file",
     order: 4,
     items: [
-      { text: "All core gameplay must be created during the 72-hour window" },
+      { text: "All core gameplay must be created during the jam window" },
       { text: "Pre-existing code libraries and frameworks are allowed" },
       { text: "Pre-made assets (sounds, textures) are allowed if you have the license" },
       { text: "Your game must be playable within s&box" },
@@ -88,7 +88,6 @@ export const rulesData: RuleSeedData[] = [
       { text: "Submitting a pre-existing game" },
       { text: "Submitting after the deadline" },
       { text: "Violating the Code of Conduct" },
-      { text: "Using AI to generate the majority of game code" },
       { text: "Judges' decisions are final" },
     ],
   },

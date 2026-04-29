@@ -17,8 +17,8 @@ export default async function HomePage() {
   } catch {}
 
   const jamName = settings?.jamName || "s&box Jam 2026";
-  const tagline = settings?.tagline || "Build something incredible in 72 hours";
-  const prizePool = settings?.prizePool || "$10,000+";
+  const tagline = settings?.tagline || "Build something incredible in one week";
+  const prizePool = settings?.prizePool || "$1,500";
   const maxTeamSize = settings?.maxTeamSize || 4;
 
   return (
@@ -54,7 +54,7 @@ export default async function HomePage() {
       <section className="px-4 py-12 border-y border-white/[0.04]">
         <div className="mx-auto max-w-4xl flex flex-wrap justify-center gap-x-16 gap-y-6 text-center">
           <div>
-            <p className="text-3xl font-bold text-white md:text-4xl">72<span className="text-lg font-normal text-text-muted ml-1">hrs</span></p>
+            <p className="text-3xl font-bold text-white md:text-4xl">7<span className="text-lg font-normal text-text-muted ml-1">days</span></p>
             <p className="text-xs text-text-muted mt-1 uppercase tracking-wider">Build Time</p>
           </div>
           <div>
@@ -76,7 +76,7 @@ export default async function HomePage() {
             {[
               { title: "Register", desc: "Sign up with your s&box account and secure your spot." },
               { title: "Form a Team", desc: `Find teammates or go solo. Teams of up to ${maxTeamSize} can compete together.` },
-              { title: "Build & Submit", desc: "Once the theme is revealed, you have 72 hours to create and submit your game." },
+              { title: "Build & Submit", desc: `Once the theme is revealed, you have one week to create and submit your game.` },
             ].map((step, i) => (
               <div key={i} className="flex gap-6 items-baseline">
                 <span className="text-4xl font-bold text-white/10 shrink-0 tabular-nums">{String(i + 1).padStart(2, "0")}</span>

@@ -10,8 +10,11 @@ APP_USER=sboxjam
 cd "$REPO_DIR"
 
 echo "==> Fetching latest"
-sudo -u "$APP_USER" -H git fetch origin master
-sudo -u "$APP_USER" -H git reset --hard origin/master
+sudo GIT_SSH_COMMAND="ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=accept-new" \
+	git -C "$REPO_DIR" fetch origin master
+sudo GIT_SSH_COMMAND="ssh -i /root/.ssh/id_rsa -o StrictHostKeyChecking=accept-new" \
+	git -C "$REPO_DIR" reset --hard origin/master
+sudo chown -R "$APP_USER:$APP_USER" "$REPO_DIR"
 
 echo "==> Installing dependencies"
 sudo -u "$APP_USER" -H bash -c "cd '$REPO_DIR' && pnpm install --frozen-lockfile"

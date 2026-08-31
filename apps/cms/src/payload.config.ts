@@ -33,11 +33,15 @@ export default buildConfig({
     "http://localhost:3001",
     "https://sboxjam.com",
     "https://admin.sboxjam.com",
+    "https://sboxlfg.com",
+    "https://admin.sboxlfg.com",
   ],
   csrf: [
     "http://localhost:3000",
     "http://localhost:3001",
     "https://sboxjam.com",
     "https://admin.sboxjam.com",
+    "https://sboxlfg.com",
+    "https://admin.sboxlfg.com",
   ],
 });

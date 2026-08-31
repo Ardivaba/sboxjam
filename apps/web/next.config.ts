@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "http", hostname: "localhost", port: "3000" },
       { protocol: "https", hostname: "admin.sboxjam.com" },
+      { protocol: "https", hostname: "admin.sboxlfg.com" },
     ],
   },
 };

@@ -266,7 +266,7 @@ export interface Team {
   /**
    * Roles this team is recruiting for
    */
-  rolesNeeded?: ('programmer' | 'artist' | 'sound' | 'money')[] | null;
+  rolesNeeded?: ('programmer' | 'artist' | 'sound')[] | null;
   /**
    * Discord server invite or contact link
    */

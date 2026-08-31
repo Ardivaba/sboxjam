@@ -8,6 +8,9 @@ export const ROLE_OPTIONS = [
   { label: "Money", value: "money" },
 ];
 
+// Teams cannot recruit for "money".
+export const RECRUITABLE_ROLE_OPTIONS = ROLE_OPTIONS.filter((o) => o.value !== "money");
+
 export const Participants: CollectionConfig = {
   slug: "participants",
   auth: {

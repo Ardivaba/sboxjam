@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAuthStore } from "@/features/auth/useAuthStore";
 import { useTeamStore } from "@/features/teams/useTeamStore";
 import { RoleBadge } from "@/components/ui/role-badge";
-import { ROLES, ROLE_LABELS, type Role } from "@/lib/types";
+import { RECRUITABLE_ROLES, ROLE_LABELS, type Role } from "@/lib/types";
 
 export default function TeamsPage() {
   const { user, token } = useAuthStore();
@@ -143,7 +143,7 @@ export default function TeamsPage() {
                     <div>
                       <label className="block text-xs text-text-muted mb-1.5 uppercase tracking-wider">Recruiting for</label>
                       <div className="flex flex-wrap gap-1.5">
-                        {ROLES.map((role) => (
+                        {RECRUITABLE_ROLES.map((role) => (
                           <button
                             type="button"
                             key={role}
@@ -201,7 +201,7 @@ export default function TeamsPage() {
                 className="input-field !w-auto"
               >
                 <option value="all">Any role needed</option>
-                {ROLES.map((role) => (
+                {RECRUITABLE_ROLES.map((role) => (
                   <option key={role} value={role}>Needs: {ROLE_LABELS[role]}</option>
                 ))}
               </select>

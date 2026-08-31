@@ -7,7 +7,7 @@ import { useAuthStore } from "@/features/auth/useAuthStore";
 import { fetchById, fetchCollection, createDoc, updateDoc } from "@/lib/payload";
 import { Avatar } from "@/components/ui/avatar";
 import { RoleBadgeList } from "@/components/ui/role-badge";
-import { ROLES, ROLE_LABELS, type JoinRequest, type Participant, type Role, type Team } from "@/lib/types";
+import { RECRUITABLE_ROLES, ROLE_LABELS, type JoinRequest, type Participant, type Role, type Team } from "@/lib/types";
 
 const asId = (v: { id: string } | string) => (typeof v === "string" ? v : v.id);
 
@@ -338,7 +338,7 @@ export default function TeamDetailPage() {
                 <div>
                   <p className="text-xs text-text-muted mb-2 uppercase tracking-wider">Recruiting for</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {ROLES.map((role) => {
+                    {RECRUITABLE_ROLES.map((role) => {
                       const active = team.rolesNeeded?.includes(role);
                       return (
                         <button

@@ -1,4 +1,4 @@
-type Role = "programmer" | "artist" | "sound" | "money";
+type Role = "programmer" | "artist" | "sound";   // teams cannot recruit for "money"
 
 export type TeamSeedData = {
   name: string;
@@ -20,7 +20,7 @@ export const teamsData: TeamSeedData[] = [
     name: "Runtime Terror",
     description: "Three devs who live for multiplayer chaos. Need someone who can model.",
     lookingForMembers: true,
-    rolesNeeded: ["artist", "money"],
+    rolesNeeded: ["artist"],
     memberCount: 2,
   },
   {

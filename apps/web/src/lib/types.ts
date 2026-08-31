@@ -2,6 +2,12 @@ export const ROLES = ["programmer", "artist", "sound", "money"] as const;
 
 export type Role = (typeof ROLES)[number];
 
+// Teams recruit for craft roles only — "money" is something a person brings,
+// not a slot a team advertises.
+export const RECRUITABLE_ROLES = ["programmer", "artist", "sound"] as const;
+
+export type RecruitableRole = (typeof RECRUITABLE_ROLES)[number];
+
 export const ROLE_LABELS: Record<Role, string> = {
   programmer: "Programmer",
   artist: "Artist",

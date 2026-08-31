@@ -1,5 +1,5 @@
 import type { CollectionConfig } from "payload";
-import { ROLE_OPTIONS } from "./Participants";
+import { RECRUITABLE_ROLE_OPTIONS } from "./Participants";
 
 export const Teams: CollectionConfig = {
   slug: "teams",
@@ -43,7 +43,7 @@ export const Teams: CollectionConfig = {
       name: "rolesNeeded",
       type: "select",
       hasMany: true,
-      options: ROLE_OPTIONS,
+      options: RECRUITABLE_ROLE_OPTIONS,
       admin: {
         description: "Roles this team is recruiting for",
       },

@@ -185,7 +185,7 @@ export interface Participant {
    * Shown in the player directory when enabled
    */
   lookingForTeam?: boolean | null;
-  roles?: ('programmer' | 'artist' | 'animator' | 'sound' | 'design' | 'writer')[] | null;
+  roles?: ('programmer' | 'artist' | 'sound' | 'money')[] | null;
   bio?: string | null;
   skills?:
     | {
@@ -266,7 +266,7 @@ export interface Team {
   /**
    * Roles this team is recruiting for
    */
-  rolesNeeded?: ('programmer' | 'artist' | 'animator' | 'sound' | 'design' | 'writer')[] | null;
+  rolesNeeded?: ('programmer' | 'artist' | 'sound' | 'money')[] | null;
   /**
    * Discord server invite or contact link
    */

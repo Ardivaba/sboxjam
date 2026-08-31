@@ -1,14 +1,12 @@
-export const ROLES = ["programmer", "artist", "animator", "sound", "design", "writer"] as const;
+export const ROLES = ["programmer", "artist", "sound", "money"] as const;
 
 export type Role = (typeof ROLES)[number];
 
 export const ROLE_LABELS: Record<Role, string> = {
   programmer: "Programmer",
   artist: "Artist",
-  animator: "Animator",
-  sound: "Sound & Music",
-  design: "Game Design",
-  writer: "Writer",
+  sound: "Sound",
+  money: "Money",
 };
 
 export type Media = {

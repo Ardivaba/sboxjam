@@ -3,10 +3,8 @@ import { ROLE_LABELS, type Role } from "@/lib/types";
 const ROLE_COLORS: Record<Role, string> = {
   programmer: "text-primary-light border-primary/30 bg-primary/10",
   artist: "text-purple-300 border-purple-400/30 bg-purple-400/10",
-  animator: "text-orange-300 border-orange-400/30 bg-orange-400/10",
   sound: "text-emerald-300 border-emerald-400/30 bg-emerald-400/10",
-  design: "text-yellow-200 border-yellow-400/30 bg-yellow-400/10",
-  writer: "text-pink-300 border-pink-400/30 bg-pink-400/10",
+  money: "text-yellow-200 border-yellow-400/30 bg-yellow-400/10",
 };
 
 export function RoleBadge({ role }: { role: Role }) {

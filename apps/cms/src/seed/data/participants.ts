@@ -1,4 +1,4 @@
-type Role = "programmer" | "artist" | "animator" | "sound" | "design" | "writer";
+type Role = "programmer" | "artist" | "sound" | "money";
 
 export type ParticipantSeedData = {
   username: string;
@@ -47,7 +47,7 @@ export const participantsData: ParticipantSeedData[] = [
   },
   {
     username: "riley_3d",
-    roles: ["artist", "animator"],
+    roles: ["artist"],
     bio: "Character modeler and animator. Rigging is my happy place.",
     skills: [{ skill: "Character modeling" }, { skill: "Rigging" }, { skill: "Animation" }],
     lookingForTeam: true,
@@ -79,7 +79,7 @@ export const participantsData: ParticipantSeedData[] = [
   },
   {
     username: "avery_ui",
-    roles: ["design", "artist"],
+    roles: ["artist"],
     bio: "UI/UX designer who codes. Razor components don't scare me.",
     skills: [{ skill: "UI design" }, { skill: "Razor" }, { skill: "Figma" }],
     lookingForTeam: true,
@@ -87,7 +87,7 @@ export const participantsData: ParticipantSeedData[] = [
   },
   {
     username: "taylor_sys",
-    roles: ["programmer", "design"],
+    roles: ["programmer"],
     bio: "Systems designer-programmer. I like economies, progression loops, and spreadsheets.",
     skills: [{ skill: "C#" }, { skill: "Systems design" }, { skill: "Balancing" }],
     lookingForTeam: false,
@@ -95,7 +95,7 @@ export const participantsData: ParticipantSeedData[] = [
   },
   {
     username: "drew_anim",
-    roles: ["animator"],
+    roles: ["artist"],
     bio: "Animator, mostly characters. First jam, eager to learn the s&box pipeline.",
     skills: [{ skill: "Animation" }, { skill: "Blender" }],
     lookingForTeam: true,
@@ -103,7 +103,7 @@ export const participantsData: ParticipantSeedData[] = [
   },
   {
     username: "jamie_words",
-    roles: ["writer", "design"],
+    roles: ["money"],
     bio: "Narrative designer. I write barks, lore, and the tutorial text nobody reads.",
     skills: [{ skill: "Narrative design" }, { skill: "Dialogue" }],
     lookingForTeam: true,

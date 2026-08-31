@@ -4,10 +4,8 @@ import { discordAuthorize, discordCallback } from "../oauth/discord";
 export const ROLE_OPTIONS = [
   { label: "Programmer", value: "programmer" },
   { label: "Artist", value: "artist" },
-  { label: "Animator", value: "animator" },
-  { label: "Sound & Music", value: "sound" },
-  { label: "Game Design", value: "design" },
-  { label: "Writer", value: "writer" },
+  { label: "Sound", value: "sound" },
+  { label: "Money", value: "money" },
 ];
 
 export const Participants: CollectionConfig = {

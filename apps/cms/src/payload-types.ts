@@ -71,11 +71,7 @@ export interface Config {
     users: User;
     participants: Participant;
     teams: Team;
-    prizes: Prize;
-    rules: Rule;
-    guides: Guide;
-    'schedule-events': ScheduleEvent;
-    submissions: Submission;
+    'join-requests': JoinRequest;
     media: Media;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -87,11 +83,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     participants: ParticipantsSelect<false> | ParticipantsSelect<true>;
     teams: TeamsSelect<false> | TeamsSelect<true>;
-    prizes: PrizesSelect<false> | PrizesSelect<true>;
-    rules: RulesSelect<false> | RulesSelect<true>;
-    guides: GuidesSelect<false> | GuidesSelect<true>;
-    'schedule-events': ScheduleEventsSelect<false> | ScheduleEventsSelect<true>;
-    submissions: SubmissionsSelect<false> | SubmissionsSelect<true>;
+    'join-requests': JoinRequestsSelect<false> | JoinRequestsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -101,12 +93,8 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {
-    'jam-settings': JamSetting;
-  };
-  globalsSelect: {
-    'jam-settings': JamSettingsSelect<false> | JamSettingsSelect<true>;
-  };
+  globals: {};
+  globalsSelect: {};
   locale: null;
   user:
     | (User & {
@@ -188,9 +176,45 @@ export interface User {
 export interface Participant {
   id: string;
   username: string;
-  registeredForJam?: boolean | null;
-  team?: (string | null) | Team;
-  sboxAccountId?: string | null;
+  discordId?: string | null;
+  /**
+   * Discord avatar, synced on login
+   */
+  avatarUrl?: string | null;
+  /**
+   * Shown in the player directory when enabled
+   */
+  lookingForTeam?: boolean | null;
+  roles?: ('programmer' | 'artist' | 'animator' | 'sound' | 'design' | 'writer')[] | null;
+  bio?: string | null;
+  skills?:
+    | {
+        skill: string;
+        id?: string | null;
+      }[]
+    | null;
+  discordHandle?: string | null;
+  /**
+   * Link to sbox.game profile
+   */
+  sboxProfileUrl?: string | null;
+  avatar?: (string | null) | Media;
+  portfolio?:
+    | {
+        title: string;
+        description?: string | null;
+        image?: (string | null) | Media;
+        /**
+         * YouTube or other video URL
+         */
+        videoUrl?: string | null;
+        /**
+         * Link to the project (sbox.game page, GitHub, etc.)
+         */
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -208,112 +232,6 @@ export interface Participant {
       }[]
     | null;
   password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "teams".
- */
-export interface Team {
-  id: string;
-  name: string;
-  description?: string | null;
-  leader: string | Participant;
-  members?: (string | Participant)[] | null;
-  maxMembers?: number | null;
-  inviteCode?: string | null;
-  lookingForMembers?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "prizes".
- */
-export interface Prize {
-  id: string;
-  title: string;
-  amount: string;
-  description?: string | null;
-  category: 'grand' | 'runner-up' | 'category' | 'honorable';
-  perks?:
-    | {
-        perk: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Material Symbols icon name
-   */
-  icon?: string | null;
-  order?: number | null;
-  sponsor?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "rules".
- */
-export interface Rule {
-  id: string;
-  title: string;
-  content?: string | null;
-  /**
-   * Material Symbols icon name
-   */
-  icon?: string | null;
-  order?: number | null;
-  items?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "guides".
- */
-export interface Guide {
-  id: string;
-  title: string;
-  /**
-   * URL path segment. Auto-derived from title if blank.
-   */
-  slug: string;
-  description: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  category: 'setup' | 'development' | 'tips';
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
-  readTime?: string | null;
-  /**
-   * Material Symbols icon name
-   */
-  icon?: string | null;
-  coverImage?: (string | null) | Media;
-  /**
-   * If set, the guide row links here instead of the in-app detail page.
-   */
-  externalUrl?: string | null;
-  order?: number | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -336,46 +254,38 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "schedule-events".
+ * via the `definition` "teams".
  */
-export interface ScheduleEvent {
+export interface Team {
   id: string;
-  title: string;
-  description: string;
-  date: string;
+  name: string;
+  description?: string | null;
+  leader: string | Participant;
+  members?: (string | Participant)[] | null;
+  maxMembers?: number | null;
   /**
-   * Display label for the date, e.g. 'Friday, 6:00 PM UTC'
+   * Roles this team is recruiting for
    */
-  dateLabel?: string | null;
+  rolesNeeded?: ('programmer' | 'artist' | 'animator' | 'sound' | 'design' | 'writer')[] | null;
   /**
-   * Material Symbols icon name
+   * Discord server invite or contact link
    */
-  icon?: string | null;
-  accent?: ('primary' | 'warning' | 'error') | null;
-  order?: number | null;
+  discordUrl?: string | null;
+  inviteCode?: string | null;
+  lookingForMembers?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "submissions".
+ * via the `definition` "join-requests".
  */
-export interface Submission {
+export interface JoinRequest {
   id: string;
-  title: string;
-  description?: string | null;
+  participant: string | Participant;
   team: string | Team;
-  gameUrl?: string | null;
-  sourceUrl?: string | null;
-  thumbnail?: (string | null) | Media;
-  screenshots?:
-    | {
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
-  status?: ('draft' | 'submitted' | 'reviewing' | 'accepted' | 'disqualified') | null;
-  submittedAt?: string | null;
+  message?: string | null;
+  status: 'pending' | 'accepted' | 'declined';
   updatedAt: string;
   createdAt: string;
 }
@@ -416,24 +326,8 @@ export interface PayloadLockedDocument {
         value: string | Team;
       } | null)
     | ({
-        relationTo: 'prizes';
-        value: string | Prize;
-      } | null)
-    | ({
-        relationTo: 'rules';
-        value: string | Rule;
-      } | null)
-    | ({
-        relationTo: 'guides';
-        value: string | Guide;
-      } | null)
-    | ({
-        relationTo: 'schedule-events';
-        value: string | ScheduleEvent;
-      } | null)
-    | ({
-        relationTo: 'submissions';
-        value: string | Submission;
+        relationTo: 'join-requests';
+        value: string | JoinRequest;
       } | null)
     | ({
         relationTo: 'media';
@@ -520,9 +414,30 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface ParticipantsSelect<T extends boolean = true> {
   username?: T;
-  registeredForJam?: T;
-  team?: T;
-  sboxAccountId?: T;
+  discordId?: T;
+  avatarUrl?: T;
+  lookingForTeam?: T;
+  roles?: T;
+  bio?: T;
+  skills?:
+    | T
+    | {
+        skill?: T;
+        id?: T;
+      };
+  discordHandle?: T;
+  sboxProfileUrl?: T;
+  avatar?: T;
+  portfolio?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        videoUrl?: T;
+        url?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -550,6 +465,8 @@ export interface TeamsSelect<T extends boolean = true> {
   leader?: T;
   members?: T;
   maxMembers?: T;
+  rolesNeeded?: T;
+  discordUrl?: T;
   inviteCode?: T;
   lookingForMembers?: T;
   updatedAt?: T;
@@ -557,96 +474,13 @@ export interface TeamsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "prizes_select".
+ * via the `definition` "join-requests_select".
  */
-export interface PrizesSelect<T extends boolean = true> {
-  title?: T;
-  amount?: T;
-  description?: T;
-  category?: T;
-  perks?:
-    | T
-    | {
-        perk?: T;
-        id?: T;
-      };
-  icon?: T;
-  order?: T;
-  sponsor?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "rules_select".
- */
-export interface RulesSelect<T extends boolean = true> {
-  title?: T;
-  content?: T;
-  icon?: T;
-  order?: T;
-  items?:
-    | T
-    | {
-        text?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "guides_select".
- */
-export interface GuidesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  description?: T;
-  content?: T;
-  category?: T;
-  difficulty?: T;
-  readTime?: T;
-  icon?: T;
-  coverImage?: T;
-  externalUrl?: T;
-  order?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "schedule-events_select".
- */
-export interface ScheduleEventsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  date?: T;
-  dateLabel?: T;
-  icon?: T;
-  accent?: T;
-  order?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "submissions_select".
- */
-export interface SubmissionsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
+export interface JoinRequestsSelect<T extends boolean = true> {
+  participant?: T;
   team?: T;
-  gameUrl?: T;
-  sourceUrl?: T;
-  thumbnail?: T;
-  screenshots?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
+  message?: T;
   status?: T;
-  submittedAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -707,63 +541,6 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "jam-settings".
- */
-export interface JamSetting {
-  id: string;
-  jamName: string;
-  tagline?: string | null;
-  registrationOpen?: boolean | null;
-  registrationStartDate?: string | null;
-  jamStartDate: string;
-  jamEndDate: string;
-  /**
-   * Revealed at jam start. Leave blank until reveal.
-   */
-  theme?: string | null;
-  maxTeamSize?: number | null;
-  prizePool?: string | null;
-  judgingCriteria?:
-    | {
-        name: string;
-        weight: number;
-        id?: string | null;
-      }[]
-    | null;
-  submissionsOpen?: boolean | null;
-  winnersAnnounced?: boolean | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "jam-settings_select".
- */
-export interface JamSettingsSelect<T extends boolean = true> {
-  jamName?: T;
-  tagline?: T;
-  registrationOpen?: T;
-  registrationStartDate?: T;
-  jamStartDate?: T;
-  jamEndDate?: T;
-  theme?: T;
-  maxTeamSize?: T;
-  prizePool?: T;
-  judgingCriteria?:
-    | T
-    | {
-        name?: T;
-        weight?: T;
-        id?: T;
-      };
-  submissionsOpen?: T;
-  winnersAnnounced?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

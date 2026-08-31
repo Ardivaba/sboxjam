@@ -7,20 +7,18 @@ import { useAuthStore } from "@/features/auth/useAuthStore";
 
 const NAV_LINKS = [
   { href: "/", label: "Home", icon: "home" },
-  { href: "/prizes", label: "Prizes", icon: "emoji_events" },
-  { href: "/rules", label: "Rules", icon: "gavel" },
-  // { href: "/guides", label: "Guides", icon: "menu_book" },
-  { href: "/devlog", label: "Devlog", icon: "edit_note" },
-  { href: "/schedule", label: "Schedule", icon: "calendar_month" },
   { href: "/teams", label: "Teams", icon: "groups" },
+  { href: "/players", label: "Players", icon: "person_search" },
 ];
 
 export function Nav() {
   const pathname = usePathname();
   const { user, logout } = useAuthStore();
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -40,7 +38,7 @@ export function Nav() {
               <span className="text-white font-bold text-xs">S</span>
             </div>
             <span className="text-white font-semibold text-[1rem] tracking-tight">
-              s&box jam
+              s&box lfg
             </span>
           </Link>
           <nav className="hidden md:flex items-center gap-0.5">
@@ -61,7 +59,7 @@ export function Nav() {
           </nav>
         </div>
         <div className="flex items-center gap-3">
-          {user ? (
+          {mounted && user ? (
             <>
               <Link
                 href="/dashboard"
@@ -77,11 +75,14 @@ export function Nav() {
                 <span className="material-symbols-rounded text-[18px]">logout</span>
                 Logout
               </button>
-              <div className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+              <Link
+                href={`/players/${user.id}`}
+                className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:border-white/40 transition-colors"
+              >
                 <span className="text-white text-xs font-medium">
                   {user.username[0].toUpperCase()}
                 </span>
-              </div>
+              </Link>
             </>
           ) : (
             <>
@@ -93,7 +94,7 @@ export function Nav() {
                 Log in
               </Link>
               <Link href="/register" className="btn-primary">
-                Register
+                Join
               </Link>
             </>
           )}

@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { ROLE_OPTIONS } from "./Participants";
 
 export const Teams: CollectionConfig = {
   slug: "teams",
@@ -7,6 +8,7 @@ export const Teams: CollectionConfig = {
   },
   admin: {
     useAsTitle: "name",
+    defaultColumns: ["name", "leader", "lookingForMembers"],
   },
   fields: [
     {
@@ -36,6 +38,22 @@ export const Teams: CollectionConfig = {
       defaultValue: 4,
       min: 1,
       max: 8,
+    },
+    {
+      name: "rolesNeeded",
+      type: "select",
+      hasMany: true,
+      options: ROLE_OPTIONS,
+      admin: {
+        description: "Roles this team is recruiting for",
+      },
+    },
+    {
+      name: "discordUrl",
+      type: "text",
+      admin: {
+        description: "Discord server invite or contact link",
+      },
     },
     {
       name: "inviteCode",

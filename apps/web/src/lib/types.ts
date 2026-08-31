@@ -1,70 +1,47 @@
-export type Prize = {
-  id: string;
-  title: string;
-  amount: string;
-  description?: string;
-  category: "grand" | "runner-up" | "category" | "honorable";
-  perks?: { perk: string }[];
-  icon?: string;
-  order: number;
-  sponsor?: string;
+export const ROLES = ["programmer", "artist", "animator", "sound", "design", "writer"] as const;
+
+export type Role = (typeof ROLES)[number];
+
+export const ROLE_LABELS: Record<Role, string> = {
+  programmer: "Programmer",
+  artist: "Artist",
+  animator: "Animator",
+  sound: "Sound & Music",
+  design: "Game Design",
+  writer: "Writer",
 };
 
-export type Rule = {
+export type Media = {
   id: string;
-  title: string;
-  content?: unknown;
-  icon?: string;
-  order: number;
-  items?: { text: string }[];
-};
-
-export type Guide = {
-  id: string;
-  title: string;
-  slug: string;
-  description: string;
-  content?: LexicalRoot | null;
-  category: "setup" | "development" | "tips";
-  difficulty: "beginner" | "intermediate" | "advanced";
-  readTime?: string;
-  icon?: string;
-  coverImage?: { id: string; url: string; alt?: string } | string | null;
-  externalUrl?: string;
-  order: number;
-};
-
-export type LexicalNode = {
-  type: string;
-  version?: number;
-  text?: string;
-  format?: number | string;
-  tag?: string;
   url?: string;
-  fields?: { url?: string; newTab?: boolean; linkType?: string };
-  listType?: "number" | "bullet";
-  language?: string;
-  code?: string;
-  value?: { id: string; url?: string; alt?: string } | string;
-  relationTo?: string;
-  altText?: string;
-  caption?: { editorState?: LexicalRoot } | string;
-  children?: LexicalNode[];
+  filename?: string;
+  alt?: string;
+  mimeType?: string;
 };
 
-export type LexicalRoot = {
-  root: LexicalNode;
-};
-
-export type ScheduleEvent = {
-  id: string;
+export type PortfolioItem = {
+  id?: string;
   title: string;
-  description: string;
-  date: string;
-  dateLabel?: string;
-  icon?: string;
-  accent: "primary" | "warning" | "error";
-  order: number;
+  description?: string;
+  image?: Media | string | null;
+  videoUrl?: string;
+  url?: string;
+};
+
+export type Participant = {
+  id: string;
+  username: string;
+  email?: string;
+  discordId?: string;
+  avatarUrl?: string;
+  lookingForTeam?: boolean;
+  roles?: Role[];
+  bio?: string;
+  skills?: { id?: string; skill: string }[];
+  discordHandle?: string;
+  sboxProfileUrl?: string;
+  avatar?: Media | string | null;
+  portfolio?: PortfolioItem[];
 };
 
 export type Team = {
@@ -74,53 +51,18 @@ export type Team = {
   leader: Participant | string;
   members: (Participant | string)[];
   maxMembers: number;
+  rolesNeeded?: Role[];
+  discordUrl?: string;
   inviteCode: string;
   lookingForMembers: boolean;
   createdAt: string;
 };
 
-export type Participant = {
+export type JoinRequest = {
   id: string;
-  username: string;
-  email: string;
-  registeredForJam: boolean;
-  team?: Team | string | null;
-  sboxAccountId?: string;
-};
-
-export type MediaItem = {
-  id: string;
-  url: string;
-  alt?: string;
-  filename?: string;
-  mimeType?: string;
-  width?: number;
-  height?: number;
-};
-
-export type DevLog = {
-  id: string;
-  title: string;
-  body: LexicalRoot;
+  participant: Participant | string;
   team: Team | string;
-  author: Participant | string;
-  images?: { image: MediaItem | string; caption?: string }[];
-  videoUrl?: string;
-  publishedAt: string;
+  message?: string;
+  status: "pending" | "accepted" | "declined";
   createdAt: string;
-};
-
-export type JamSettings = {
-  jamName: string;
-  tagline: string;
-  registrationOpen: boolean;
-  registrationStartDate?: string;
-  jamStartDate: string;
-  jamEndDate: string;
-  theme?: string;
-  maxTeamSize: number;
-  prizePool: string;
-  judgingCriteria?: { name: string; weight: number }[];
-  submissionsOpen: boolean;
-  winnersAnnounced: boolean;
 };

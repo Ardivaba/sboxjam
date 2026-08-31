@@ -9,13 +9,7 @@
     "start": "next start",
     "generate:types": "payload generate:types",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
-    "db:seed": "payload run ./src/seed",
-    "db:seed:settings": "payload run ./src/seed/seedJamSettings",
-    "db:seed:prizes": "payload run ./src/seed/seedPrizes",
-    "db:seed:rules": "payload run ./src/seed/seedRules",
-    "db:seed:guides": "payload run ./src/seed/seedGuides",
-    "db:seed:schedule": "payload run ./src/seed/seedSchedule",
-    "db:seed:teams": "payload run ./src/seed/seedTeams"
+    "db:seed": "payload run ./src/seed"
   },
   "dependencies": {
     "next": "15.2.4",

@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { Nav } from "@/features/nav/Nav";
 import { Footer } from "@/features/nav/Footer";
 import { GlobalSpotlight } from "@/components/ui/global-spotlight";
-import { TestRibbon } from "@/components/ui/test-ribbon";
+import { AuthRefresh } from "@/features/auth/AuthRefresh";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "s&box Jam — The Ultimate Game Jam",
-  description: "Join the biggest s&box game jam. Build games, form teams, win prizes.",
+  title: "s&box LFG — Find your gamejam team",
+  description:
+    "Team up for the s&box gamejam. Create a team, recruit members, or showcase your portfolio and get recruited.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased">
         <div className="hero-bg" />
         <GlobalSpotlight />
-        <TestRibbon />
+        <AuthRefresh />
         <div className="relative z-10">
           <Nav />
           <main className="min-h-screen">{children}</main>

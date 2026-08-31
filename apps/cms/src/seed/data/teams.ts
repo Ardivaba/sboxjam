@@ -1,7 +1,11 @@
+type Role = "programmer" | "artist" | "animator" | "sound" | "design" | "writer";
+
 export type TeamSeedData = {
   name: string;
   description: string;
   lookingForMembers: boolean;
+  rolesNeeded: Role[];
+  memberCount: number;
 };
 
 export const teamsData: TeamSeedData[] = [
@@ -9,40 +13,28 @@ export const teamsData: TeamSeedData[] = [
     name: "Pixel Pushers",
     description: "We make games that look pretty and play smooth. Looking for a sound designer!",
     lookingForMembers: true,
+    rolesNeeded: ["sound"],
+    memberCount: 3,
   },
   {
     name: "Runtime Terror",
     description: "Three devs who live for multiplayer chaos. Need someone who can model.",
     lookingForMembers: true,
+    rolesNeeded: ["artist", "animator"],
+    memberCount: 2,
   },
   {
     name: "Scope Creep Studios",
     description: "We promise we'll keep it small this time. Narrator: they did not.",
     lookingForMembers: true,
-  },
-  {
-    name: "null && void",
-    description: "Systems programmers trying to make something fun for once. UI help wanted.",
-    lookingForMembers: true,
+    rolesNeeded: ["programmer", "artist"],
+    memberCount: 2,
   },
   {
     name: "The Jam Jars",
     description: "Fourth jam together. We've got workflow down to a science.",
     lookingForMembers: false,
-  },
-  {
-    name: "Last Minute Legends",
-    description: "We do our best work under pressure. All roles filled but say hi anyway.",
-    lookingForMembers: false,
-  },
-  {
-    name: "Voxel Vagrants",
-    description: "Blocky art, big ambitions. Need one more coder comfortable with procedural gen.",
-    lookingForMembers: true,
-  },
-  {
-    name: "Git Blame Society",
-    description: "We break things fast and fix them faster. Looking for a generalist.",
-    lookingForMembers: true,
+    rolesNeeded: [],
+    memberCount: 2,
   },
 ];

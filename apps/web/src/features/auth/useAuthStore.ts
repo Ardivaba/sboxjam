@@ -1,73 +1,68 @@
 "use client";
 
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import type { Participant } from "@/lib/types";
 
 type AuthState = {
   user: Participant | null;
   token: string | null;
-  loading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (username: string, email: string, password: string) => Promise<void>;
+  loginWithDiscord: () => void;
+  completeLogin: (token: string) => Promise<boolean>;
   logout: () => void;
-  setUser: (user: Participant, token: string) => void;
+  refresh: () => Promise<void>;
 };
 
 const CMS_URL = process.env.NEXT_PUBLIC_CMS_URL || "http://localhost:3000";
 
-export const useAuthStore = create<AuthState>((set, get) => ({
-  user: null,
-  token: null,
-  loading: false,
+async function fetchMe(token: string): Promise<{ user: Participant; token: string } | null> {
+  const res = await fetch(`${CMS_URL}/api/participants/me`, {
+    headers: { Authorization: `JWT ${token}` },
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  if (!data.user) return null;
+  return { user: data.user, token: data.token || token };
+}
 
-  login: async (email, password) => {
-    set({ loading: true });
-    const res = await fetch(`${CMS_URL}/api/participants/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    if (!res.ok) {
-      set({ loading: false });
-      const data = await res.json();
-      throw new Error(data.errors?.[0]?.message || "Invalid credentials");
-    }
-    const data = await res.json();
-    set({ user: data.user, token: data.token, loading: false });
-  },
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set, get) => ({
+      user: null,
+      token: null,
 
-  register: async (username, email, password) => {
-    set({ loading: true });
-    const res = await fetch(`${CMS_URL}/api/participants`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password }),
-    });
-    if (!res.ok) {
-      set({ loading: false });
-      const data = await res.json();
-      throw new Error(data.errors?.[0]?.message || "Registration failed");
-    }
-    const data = await res.json();
-    const loginRes = await fetch(`${CMS_URL}/api/participants/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-    if (loginRes.ok) {
-      const loginData = await loginRes.json();
-      set({ user: loginData.user, token: loginData.token, loading: false });
-    } else {
-      set({ loading: false });
-    }
-  },
+      loginWithDiscord: () => {
+        window.location.href = `${CMS_URL}/api/participants/oauth/discord`;
+      },
 
-  logout: () => {
-    fetch(`${CMS_URL}/api/participants/logout`, {
-      method: "POST",
-    });
-    set({ user: null, token: null });
-  },
+      // Called by /auth/callback with the JWT from the OAuth redirect.
+      completeLogin: async (token) => {
+        const me = await fetchMe(token);
+        if (!me) return false;
+        set(me);
+        return true;
+      },
 
-  setUser: (user, token) => set({ user, token }),
-}));
+      logout: () => {
+        fetch(`${CMS_URL}/api/participants/logout`, { method: "POST" });
+        set({ user: null, token: null });
+      },
+
+      // Re-validates the persisted token and picks up profile edits.
+      refresh: async () => {
+        const { token } = get();
+        if (!token) return;
+        try {
+          const me = await fetchMe(token);
+          set(me ?? { user: null, token: null });
+        } catch {
+          // Network hiccup — keep the persisted session.
+        }
+      },
+    }),
+    {
+      name: "sbox-lfg-auth",
+      partialize: (state) => ({ user: state.user, token: state.token }),
+    },
+  ),
+);

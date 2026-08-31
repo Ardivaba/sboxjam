@@ -7,12 +7,7 @@
     "dev:web": "pnpm --filter @sboxjam/web dev",
     "build": "turbo build",
     "generate:types": "pnpm --filter @sboxjam/cms generate:types",
-    "db:seed": "pnpm --filter @sboxjam/cms db:seed",
-    "db:seed:settings": "pnpm --filter @sboxjam/cms db:seed:settings",
-    "db:seed:prizes": "pnpm --filter @sboxjam/cms db:seed:prizes",
-    "db:seed:rules": "pnpm --filter @sboxjam/cms db:seed:rules",
-    "db:seed:guides": "pnpm --filter @sboxjam/cms db:seed:guides",
-    "db:seed:schedule": "pnpm --filter @sboxjam/cms db:seed:schedule"
+    "db:seed": "pnpm --filter @sboxjam/cms db:seed"
   },
   "devDependencies": {
     "turbo": "^2.4.4"

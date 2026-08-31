@@ -6,14 +6,8 @@ import { fileURLToPath } from "url";
 import { Users } from "./collections/Users";
 import { Participants } from "./collections/Participants";
 import { Teams } from "./collections/Teams";
-import { Prizes } from "./collections/Prizes";
-import { Rules } from "./collections/Rules";
-import { Guides } from "./collections/Guides";
-import { ScheduleEvents } from "./collections/ScheduleEvents";
-import { Submissions } from "./collections/Submissions";
-import { DevLogs } from "./collections/DevLogs";
+import { JoinRequests } from "./collections/JoinRequests";
 import { Media } from "./collections/Media";
-import { JamSettings } from "./globals/JamSettings";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -25,19 +19,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [
-    Users,
-    Participants,
-    Teams,
-    Prizes,
-    Rules,
-    Guides,
-    ScheduleEvents,
-    Submissions,
-    DevLogs,
-    Media,
-  ],
-  globals: [JamSettings],
+  collections: [Users, Participants, Teams, JoinRequests, Media],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "dev-secret",
   typescript: {

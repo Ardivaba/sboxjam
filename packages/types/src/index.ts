@@ -1,46 +1,45 @@
-export type Prize = {
+export const ROLES = ["programmer", "artist", "animator", "sound", "design", "writer"] as const;
+
+export type Role = (typeof ROLES)[number];
+
+export const ROLE_LABELS: Record<Role, string> = {
+  programmer: "Programmer",
+  artist: "Artist",
+  animator: "Animator",
+  sound: "Sound & Music",
+  design: "Game Design",
+  writer: "Writer",
+};
+
+export type Media = {
   id: string;
+  url?: string;
+  filename?: string;
+  alt?: string;
+  mimeType?: string;
+};
+
+export type PortfolioItem = {
+  id?: string;
   title: string;
-  amount: string;
   description?: string;
-  category: "grand" | "runner-up" | "category" | "honorable";
-  perks?: { perk: string }[];
-  icon?: string;
-  order: number;
-  sponsor?: string;
+  image?: Media | string | null;
+  videoUrl?: string;
+  url?: string;
 };
 
-export type Rule = {
+export type Participant = {
   id: string;
-  title: string;
-  content?: unknown;
-  icon?: string;
-  order: number;
-  items?: { text: string }[];
-};
-
-export type Guide = {
-  id: string;
-  title: string;
-  description: string;
-  content?: unknown;
-  category: "setup" | "development" | "tips";
-  difficulty: "beginner" | "intermediate" | "advanced";
-  readTime?: string;
-  icon?: string;
-  externalUrl?: string;
-  order: number;
-};
-
-export type ScheduleEvent = {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  dateLabel?: string;
-  icon?: string;
-  accent: "primary" | "warning" | "error";
-  order: number;
+  username: string;
+  email?: string;
+  lookingForTeam?: boolean;
+  roles?: Role[];
+  bio?: string;
+  skills?: { id?: string; skill: string }[];
+  discordHandle?: string;
+  sboxProfileUrl?: string;
+  avatar?: Media | string | null;
+  portfolio?: PortfolioItem[];
 };
 
 export type Team = {
@@ -50,31 +49,18 @@ export type Team = {
   leader: Participant | string;
   members: (Participant | string)[];
   maxMembers: number;
+  rolesNeeded?: Role[];
+  discordUrl?: string;
   inviteCode: string;
   lookingForMembers: boolean;
   createdAt: string;
 };
 
-export type Participant = {
+export type JoinRequest = {
   id: string;
-  username: string;
-  email: string;
-  registeredForJam: boolean;
-  team?: Team | string | null;
-  sboxAccountId?: string;
-};
-
-export type JamSettings = {
-  jamName: string;
-  tagline: string;
-  registrationOpen: boolean;
-  registrationStartDate?: string;
-  jamStartDate: string;
-  jamEndDate: string;
-  theme?: string;
-  maxTeamSize: number;
-  prizePool: string;
-  judgingCriteria?: { name: string; weight: number }[];
-  submissionsOpen: boolean;
-  winnersAnnounced: boolean;
+  participant: Participant | string;
+  team: Team | string;
+  message?: string;
+  status: "pending" | "accepted" | "declined";
+  createdAt: string;
 };
